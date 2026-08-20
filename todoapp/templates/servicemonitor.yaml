@@ -1,3 +1,4 @@
+{{- if .Values.serviceMonitor.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -10,6 +11,7 @@ spec:
     matchLabels:
       app: {{ .Chart.Name }}
   endpoints:
-  - port: http
-    path: {{ .Values.serviceMonitor.path }}
-    interval: {{ .Values.serviceMonitor.interval }}
+    - port: {{ .Values.serviceMonitor.port }}
+      path: {{ .Values.serviceMonitor.path }}
+      interval: {{ .Values.serviceMonitor.interval }}
+{{- end }}
